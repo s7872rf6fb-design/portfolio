@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Portfolio</h1>
+    <p>Welcome to my portfolio website</p>
+    <div id="langSwitcher">
+      <button id="jpBtn">JP</button>
+      <button id="enBtn">EN</button>
+    </div>
+  </header>
+
+  <section id="about">
+    <h2 class="mainText" id="aboutMain">About me</h2>
+    <div class="hiddenText" id="aboutHidden"></div>
+  </section>
+
+  <section id="career">
+    <h2 class="mainText" id="careerMain">Career</h2>
+    <div class="hiddenText" id="careerHidden"></div>
+  </section>
+
+  <section id="works">
+    <h2 class="mainText" id="worksMain">My Works</h2>
+    <div class="hiddenText" id="worksHidden">
+      <ul id="worksList"></ul>
+    </div>
+  </section>
+
+  <div id="galleryScene" class="gallery-scene" role="dialog" aria-modal="true" aria-hidden="true">
+    <h2 id="galleryTitle"></h2>
+    <div class="gallery-grid" id="galleryImages" aria-live="polite"></div>
+    <button type="button" class="close-btn" id="closeGallery">Back</button>
+  </div>
+
+  <footer>
+    <p>&copy; <span id="currentYear"></span> Gakuyo Fukuyama</p>
+  </footer>
+
+  <div id="imageViewer" class="image-viewer" aria-hidden="true" role="dialog">
+    <img id="viewerImg" src="" alt="Full view">
+    <p id="viewerTitle" class="viewer-title"></p>
+    <button type="button" id="closeViewer" class="close-viewer" aria-label="Close viewer">✕</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

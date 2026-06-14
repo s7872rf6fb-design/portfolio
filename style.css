@@ -1,0 +1,445 @@
+body {
+  font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+  color: #333;
+}
+
+h1, h2, h3 {
+  font-family: "Fjalla One", sans-serif; /* タイトル・英語強調 */
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+header {
+  position: relative;
+  text-align: center;
+  color: white;
+  padding: 60px 0;
+  background-image: url("images/back.JPG"); /* ← 背景画像 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* 半透明の黒いオーバーレイ */
+  z-index: 0;
+}
+
+/* ヘッダーの文字を最前面に */
+header h1, header p {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== ヘッダー右上 言語切替ボタン ===== */
+#langSwitcher {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+#langSwitcher button {
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  padding: 6px 12px;
+  margin-left: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+#langSwitcher button:hover {
+  background: #fff;
+}
+
+#langSwitcher button.active {
+  background: #fff;       /* 背景を真っ白にして目立たせる */
+  color: #333;           /* 文字色を濃くしてハッキリと */
+  border-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* ほんのり影をつけて浮き上がらせる */
+  pointer-events: none;  /* 選択中のボタンはクリック連打できないようにする（任意） */
+}
+
+/* ===== フッター ===== */
+footer {
+  text-align: center;
+  background: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+section {
+  padding: 30px 15px;
+  text-align: center;
+}
+
+/* ===== メイン文字アニメーション ===== */
+.mainText {
+  font-size: 24px;
+  cursor: pointer;
+  display: inline-block;
+  color: #333;
+  transition: transform 0.3s ease;
+}
+
+.mainText:hover {
+  transform: scale(1.1);
+}
+
+/* ===== アコーディオン（開閉式テキスト） ===== */
+.hiddenText {
+  max-height: 0;
+  overflow: hidden;
+  color: #555;
+  margin-top: 10px;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+}
+
+/* 開いた状態 */
+.hiddenText.show {
+  max-height: 1000px; /* 中身のボリュームに合わせて調整できるように少し余裕を持たせます */
+  opacity: 1;
+}
+
+/* ===== Works リスト ===== */
+#worksList {
+  list-style: none;
+  padding: 0;
+  margin: 30px auto;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#worksList li {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px 25px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#worksList li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+#worksList li strong {
+  font-size: 16px;
+  color: #78909c;
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  text-align: center;
+}
+
+#worksList li span.title {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+#worksList li .work-award {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e43018; /* 受賞歴 */
+  margin-bottom: 6px;
+  text-align: center;
+  background: #e6e4df; /* ほんのり背景色をつけて目立たせる（お好みで） */
+  padding: 4px 12px;
+  border-radius: 4px;
+  display: inline-block; /* 中央配置を維持するため、一度ブロック要素の並びに */
+  margin: 0 auto 8px auto;
+}
+
+/* リスト内での中央揃えを維持するための調整 */
+#worksList li {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 子要素を中央に揃える */
+}
+
+/* 既存の work-desc も中央揃えを確実にキープ */
+.work-desc {
+  width: 100%;
+}
+
+.work-desc {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ===== 内部スクロールエリア（My Works用） ===== */
+#worksHidden {
+  max-height: 0; /* JSで.showが付くまでは0 */
+  overflow: hidden;
+}
+
+#worksHidden.show {
+  max-height: 70vh; /* 表示領域を制限（画面の70%） */
+  overflow-y: auto; /* 内部スクロールを許可 */
+  padding-right: 8px;
+  scrollbar-width: thin;
+}
+
+/* ===== ギャラリー全体（オーバーレイ） ===== */
+.gallery-scene {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: 40px 20px;
+  z-index: 1000;
+  overflow-y: auto;
+  animation: fadeIn 0.4s ease;
+}
+
+/* .show時に flex 表示にする */
+.gallery-scene.show {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ギャラリー画像グリッド */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 1200px; /* 最大幅を制限して広がりすぎを防ぐ */
+}
+
+.gallery-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  object-fit: cover;
+  border-radius: 6px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-grid img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+/* ===== ギャラリーの最初の画像を大きく表示 ===== */
+.gallery-grid img.main-image {
+  grid-column: 1 / -1; /* 横幅いっぱいに */
+  width: 100%;
+  max-width: 900px; /* メイン画像があまり巨大化しすぎないように制限 */
+  margin: 0 auto 20px auto;
+  border-radius: 8px;
+}
+
+/* BACKボタン */
+.close-btn {
+  position: sticky;
+  bottom: 20px;
+  margin-top: 40px;
+  padding: 12px 30px;
+  background-color: #222;
+  color: white;
+  border: 1px solid #444;
+  cursor: pointer;
+  border-radius: 25px; /* 丸みを持たせてモダンに */
+  font-weight: 600;
+  transition: background 0.3s;
+  z-index: 10;
+}
+
+.close-btn:hover {
+  background-color: #444;
+}
+
+/* ===== フルスクリーン画像ビューア ===== */
+.image-viewer {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+.image-viewer.show {
+  display: flex;
+}
+
+.image-viewer img {
+  max-width: 90%;
+  max-height: 75%;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(255,255,255,0.1);
+  object-fit: contain;
+  margin-bottom: 40px;
+  /* 💡 以下の2行を追加します */
+  touch-action: pinch-zoom; /* モバイル等でのピンチズームを画像に対して許可 */
+  transition: transform 0.2s ease; /* もし将来的にJS等で画像単体を拡大させる場合の動きを滑らかに */
+}
+
+.close-viewer {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-viewer:hover {
+  background: #fff;
+  transform: scale(1.05);
+}
+
+.viewer-title {
+  position: absolute;
+  bottom: 40px; /* 💡 画面の一番下から少し浮かせた位置に固定 */
+  width: 100%;
+  text-align: center;
+  font-size: 16px; /* 💡 少しだけ文字を大きくして視認性をアップ */
+  color: #ccc; /* 💡 灰色から、暗い背景でも見えやすい明るいグレー（#ccc）に変更 */
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Career レイアウト ===== */
+.career-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* これで子要素（item）を中央に集める */
+}
+
+.career-item {
+  display: grid;
+  /* 💡 左側の幅を 100px から 60px に狭める（2006などの4文字にぴったりな幅にする） */
+  grid-template-columns: 60px 1fr; 
+  gap: 16px;
+  width: 100%;
+  max-width: 380px; /* 💡 全体の最大幅を少し狭めて中央にギュッと寄せる */
+  margin-bottom: 18px;
+  align-items: flex-start;
+}
+
+/* 経歴の「年」のスタイル */
+.career-year {
+  font-weight: 600;
+  font-family: "Fjalla One", sans-serif;
+  color: #78909c; 
+  text-align: right; /* 💡 ここを right に変更して中央の境界線に集める */
+  margin: 0;
+  line-height: 1.6;
+  white-space: nowrap; /* 年が途中で改行されるのを防ぐ */
+}
+
+/* 経歴の「本文」のスタイル */
+.career-text {
+  margin: 0;
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+  text-align: left; /* 本文は綺麗な左揃えのまま */
+}
+
+/* ===== レスポンシブ対応 ===== */
+@media (max-width: 768px) {
+  header {
+    padding: 40px 15px;
+  }
+
+  #langSwitcher {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+
+  #worksList li {
+    padding: 15px 20px;
+  }
+
+  .gallery-scene {
+    padding: 30px 15px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr; /* スマホではグリッドを一列にしてしっかり見せる */
+    gap: 15px;
+  }
+
+  .gallery-grid img.main-image {
+    width: 100%; /* スマホ時は余白をなくして画面幅いっぱいに */
+    max-width: 100%;
+  }
+
+  .image-viewer img {
+    max-width: 95%;
+    max-height: 80%;
+  }
+
+  .close-viewer {
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .career-item {
+    grid-template-columns: 1fr; /* スマホ以下では縦並びに */
+    gap: 4px;
+    margin-bottom: 20px;
+  }
+
+  .career-year {
+    text-align: left;
+    color: #d0350e; /* 年代を少し強調 */
+  }
+}
